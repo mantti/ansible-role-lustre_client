@@ -19,8 +19,8 @@
   template:
     src: lnet.conf.j2
     dest: /etc/lnet.conf
-    owner: root 
-    group: root 
+    owner: root
+    group: root
     mode: 0644
   notify: lnet service restart
 
