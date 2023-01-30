@@ -15,6 +15,15 @@
     state: present
   when: lustre_packages is defined
 
+- name: Lustre lnet.conf
+  template:
+    src: lnet.conf.j2
+    dest: /etc/lnet.conf
+    owner: root 
+    group: root 
+    mode: 0644
+  notify: lnet service restart
+
 - name: Lustre modprobe.d confings
   template:
     src: lustre.conf.j2
@@ -65,5 +74,6 @@
     src: "{{ item.src }}"
     opts: "{{ item.opts | default(lustre_mount_opts) | join(',') }}"
     state: "{{ item.state | default(lustre_mount_state) }}"
+#    state: "{{ lustre_mount_state }}"
   loop: "{{ lustre_mounts }}"
   when: lustre_mounts is defined
